@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Eugene Kozlov']
   spec.email         = ['kozlovea8@gmail.com']
 
-  spec.summary       = 'Sberbank Merchant API Client for Ruby'
-  spec.description   = ''
+  spec.summary       = 'Sberbank Merchant'
+  spec.description   = 'Sberbank Merchant API Client for Ruby'
   spec.homepage      = 'https://github.com/abstractart/sbrf_merchant'
   spec.license       = 'MIT'
 

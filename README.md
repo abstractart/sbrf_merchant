@@ -1,4 +1,10 @@
-# Sberbank Merchant [![Build Status](https://travis-ci.org/abstractart/sbrf_merchant.svg?branch=master)](https://travis-ci.org/abstractart/sbrf_merchant) [![Gem Version](https://badge.fury.io/rb/sbrf_merchant.svg)](https://badge.fury.io/rb/sbrf_merchant)
+# Sberbank Merchant
+
+[![Build Status](https://travis-ci.org/abstractart/sbrf_merchant.svg?branch=master)](https://travis-ci.org/abstractart/sbrf_merchant)
+[![Gem Version](https://badge.fury.io/rb/sbrf_merchant.svg)](https://badge.fury.io/rb/sbrf_merchant)
+[![Code Climate](https://codeclimate.com/github/abstractart/sbrf_merchant/badges/gpa.svg
+)](https://codeclimate.com/github/abstractart/sbrf_merchant)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/db86deaba446bac68ae1/test_coverage)](https://codeclimate.com/github/abstractart/sbrf_merchant/test_coverage)
 Ruby wrapper for the Sberbank Merchant API. [Documentation (RU)](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
 ## Installation
 

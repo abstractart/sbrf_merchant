@@ -62,8 +62,12 @@ order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: ord
 response = order.cancel
 response.success? # true or false
   ```
-## Supported Ruby Versions
-**WIP** (tested only Ruby 2.5)
+## Supported Ruby Versions (Travis CI)
+
+- 2.5.1
+- 2.4.4
+- 2.3.7
+- 2.2.10
 
 ## Copyright
 Copyright (c) 2018 Eugene Kozlov. See [LICENSE][] for details.

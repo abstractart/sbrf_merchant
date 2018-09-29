@@ -1,43 +1,72 @@
-# SberbankMerchantApi
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sberbank_merchant_api`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
+# Sberbank Merchant
+[![Build Status](https://travis-ci.org/abstractart/sbrf_merchant.svg?branch=master)](https://travis-ci.org/abstractart/sbrf_merchant)
+Ruby wrapper for the Sberbank Merchant API. [Documentation (RU)](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
 ## Installation
 
-Add this line to your application's Gemfile:
+### Manually from RubyGems.org ###
 
-```ruby
-gem 'sberbank_merchant_api'
+```sh
+% gem install sbrf_merchant
 ```
 
-And then execute:
+### Or if you are using Bundler ###
 
-    $ bundle
+```ruby
+# Gemfile
+gem 'sbrf_merchant'
+```
 
-Or install it yourself as:
+## Configuration
 
-    $ gem install sberbank_merchant_api
+```ruby
+SbrfMerchant.configure do |config|
+  config.userName = '<Merchant Username>'
+  config.password = '<Merchant Password>'
+  config.host =     '<Sberbank API Host>'
+end
+```
 
-## Usage
+# Usage Examples
+```ruby
+# First of all you need create order object
+new_order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber)
+already_created_order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: orderId)
+```
+## Register Order
+```ruby
+require 'securerandom'
+order = SbrfMerchant::Order::OneStage.new(orderNumber: SecureRandom.hex)
+response = order.register(amount: 10000, returnUrl: 'http:/localhost:3000')
 
-TODO: Write usage instructions here
+order.orderId # returns unique Id in Sberbank system
+response.success? # true
+response.formUrl # "https://3dsec.sberbank.ru/payment/merchants/sbersafe/payment_ru.html?mdOrder=<orderId>"
+```
+## Order Status
+```ruby
+order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: orderId)
+response = order.get_info
+response.not_paid? # true or false
+```
+## Refund
+```ruby
 
-## Development
+refund_amount = 1000
+order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: orderId)
+response = order.refund(refund_amount)
+response.success? # true or false
+```
+## Cancel
+```ruby
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: orderId)
+response = order.cancel
+response.success? # true or false
+  ```
+## Supported Ruby Versions
+**WIP** (tested only Ruby 2.5)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Copyright
+Copyright (c) 2018 Eugene Kozlov. See [LICENSE][] for details.
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sberbank_merchant_api. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the SberbankMerchantApi project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/sberbank_merchant_api/blob/master/CODE_OF_CONDUCT.md).
+[license]: LICENSE.md

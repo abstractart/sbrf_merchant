@@ -1,5 +1,4 @@
-# Sberbank Merchant
-[![Build Status](https://travis-ci.org/abstractart/sbrf_merchant.svg?branch=master)](https://travis-ci.org/abstractart/sbrf_merchant)
+# Sberbank Merchant [![Build Status](https://travis-ci.org/abstractart/sbrf_merchant.svg?branch=master)](https://travis-ci.org/abstractart/sbrf_merchant)
 Ruby wrapper for the Sberbank Merchant API. [Documentation (RU)](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
 ## Installation
 

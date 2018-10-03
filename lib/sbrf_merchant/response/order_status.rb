@@ -1,3 +1,6 @@
+require 'sbrf_merchant/api/order_status'
+
+
 module SbrfMerchant
   module Response
     class OrderStatus < Response::Base
@@ -31,31 +34,31 @@ module SbrfMerchant
       end
 
       def not_paid?
-        status_equals?(OrderStatus::NOT_PAID)
+        status_equals?(SbrfMerchant::Api::OrderStatus::NOT_PAID)
       end
 
       def preauthorized?
-        status_equals?(OrderStatus::PREAUTHORIZED_AMOUNT_HOLD)
+        status_equals?(SbrfMerchant::Api::OrderStatus::PREAUTHORIZED_AMOUNT_HOLD)
       end
 
       def completed?
-        status_equals?(OrderStatus::COMPLETED)
+        status_equals?(SbrfMerchant::Api::OrderStatus::COMPLETED)
       end
 
       def cancelled?
-        status_equals?(OrderStatus::CANCEL)
+        status_equals?(SbrfMerchant::Api::OrderStatus::CANCEL)
       end
 
       def refunded?
-        status_equals?(OrderStatus::REFUND)
+        status_equals?(SbrfMerchant::Api::OrderStatus::REFUND)
       end
 
       def auth_on_bank_issuer_side?
-        status_equals?(OrderStatus::AUTH_ON_BANK_ISSUER_SIDE)
+        status_equals?(SbrfMerchant::Api::OrderStatus::AUTH_ON_BANK_ISSUER_SIDE)
       end
 
       def rejected?
-        status_equals?(OrderStatus::REJECTED)
+        status_equals?(SbrfMerchant::Api::OrderStatus::REJECTED)
       end
 
       private

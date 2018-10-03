@@ -3,7 +3,9 @@ require 'sbrf_merchant'
 require 'simplecov'
 require 'simplecov-console'
 SimpleCov.formatter = SimpleCov::Formatter::Console
-SimpleCov.start
+SimpleCov.start do
+  add_filter '/spec/support'
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

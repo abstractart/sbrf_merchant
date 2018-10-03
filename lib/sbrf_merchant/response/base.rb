@@ -1,4 +1,5 @@
 require 'sbrf_merchant/api/error_code'
+
 module SbrfMerchant
   module Response
     class Base

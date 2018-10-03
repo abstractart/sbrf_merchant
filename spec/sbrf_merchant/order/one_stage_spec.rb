@@ -18,6 +18,7 @@ RSpec.describe SbrfMerchant::Order::OneStage do
     end
 
     it 'returns orderId & payment formURL' do
+      expect(actual_response).to be_success
       expect(actual_response.orderId).to eq(orderId)
       expect(actual_response.formUrl).to eq(formUrl)
       expect(payment.orderId).to eq(orderId)
@@ -37,6 +38,7 @@ RSpec.describe SbrfMerchant::Order::OneStage do
     let(:actual_response) { payment.refund(amount) }
 
     it 'returns errorCode & errorMessage' do
+      expect(actual_response).to be_success
       expect(actual_response.errorCode).to eq(errorCode)
       expect(actual_response.errorMessage).to eq(errorMessage)
     end
@@ -55,27 +57,10 @@ RSpec.describe SbrfMerchant::Order::OneStage do
     let(:actual_response) { payment.get_info }
 
     it 'returns errorCode & errorMessage' do
+      expect(actual_response).to be_success
+      expect(actual_response).to be_not_paid
       expect(actual_response.errorCode).to eq(errorCode)
       expect(actual_response.errorMessage).to eq(errorMessage)
-    end
-  end
-
-  context '#cancel' do
-    include_context 'API Client Order Status Stub'
-
-    let(:payment) do
-      described_class.new(
-        orderNumber: orderNumber,
-        api_client: api_client,
-        orderId: orderId
-      )
-    end
-    let(:actual_response) { payment.get_info }
-
-    it 'returns orderStatus, orderNumber, amount' do
-      expect(actual_response.orderStatus).to eq(orderStatus)
-      expect(actual_response.orderNumber).to eq(orderNumber)
-      expect(actual_response.amount).to eq(amount)
     end
   end
 

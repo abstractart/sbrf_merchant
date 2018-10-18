@@ -11,7 +11,9 @@ module SbrfMerchant
       end
 
       def success?
-        errorCode == SbrfMerchant::Api::ErrorCode::SUCCESS
+        return false unless errorCode
+
+        errorCode.to_i == SbrfMerchant::Api::ErrorCode::SUCCESS
       end
     end
   end

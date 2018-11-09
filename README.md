@@ -33,12 +33,13 @@ end
 [RU](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
 
 # Usage Examples
-```ruby
-# First of all you need create order object
-new_order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber)
-already_created_order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: orderId)
-```
-## Register Order
+
+**orderId** - order identificator in Sberbank Payment Gateway
+
+**orderNumber** - order identificator in your system
+
+## OneStage Order
+### Register
 ```ruby
 require 'securerandom'
 order = SbrfMerchant::Order::OneStage.new(orderNumber: SecureRandom.hex)
@@ -48,13 +49,13 @@ order.orderId # returns unique Id in Sberbank system
 response.success? # true
 response.formUrl # "https://3dsec.sberbank.ru/payment/merchants/sbersafe/payment_ru.html?mdOrder=<orderId>"
 ```
-## Order Status
+### Status
 ```ruby
 order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: orderId)
 response = order.get_info
 response.not_paid? # true or false
 ```
-## Refund
+### Refund
 ```ruby
 
 refund_amount = 1000
@@ -62,19 +63,13 @@ order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: ord
 response = order.refund(refund_amount)
 response.success? # true or false
 ```
-## Cancel
+### Cancel
 ```ruby
 
 order = SbrfMerchant::Order::OneStage.new(orderNumber: orderNumber, orderId: orderId)
 response = order.cancel
 response.success? # true or false
   ```
-## Supported Ruby Versions (Travis CI)
-
-- 2.5.1
-- 2.4.4
-- 2.3.7
-- 2.2.10
 
 ## Copyright
 Copyright (c) 2018 Eugene Kozlov. See [LICENSE][] for details.

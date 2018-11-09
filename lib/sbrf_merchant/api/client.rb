@@ -1,6 +1,6 @@
-require 'faraday'
-require 'active_support/core_ext/hash/indifferent_access'
 require 'json'
+require 'uri'
+require 'net/http'
 
 module SbrfMerchant
   module Api
@@ -14,19 +14,29 @@ module SbrfMerchant
       end
 
       def process_request(path, params)
-        JSON.parse(http_client.post(path, params).body).with_indifferent_access
+        parse_response_body(http_request(path, params))
       end
 
       private
 
-      def http_client
-        @client ||= Faraday.new(
-          url: host,
-          params: {
-            userName: userName,
-            password: password
-          }
+      def parse_response_body(response)
+        JSON.parse(response.body, symbolize_names: true)
+      end
+
+      def http_request(path, params)
+        uri = URI.join(host, path)
+
+        Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+          http.request(build_net_http_request_object(uri, params))
+        end
+      end
+
+      def build_net_http_request_object(uri, params)
+        request = Net::HTTP::Post.new(uri)
+        request.set_form_data(
+          params.merge(userName: userName, password: password)
         )
+        request
       end
     end
   end

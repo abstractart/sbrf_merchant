@@ -5,6 +5,14 @@ module SbrfMerchant
     attr_accessor :configuration
   end
 
+  def self.api_client
+    SbrfMerchant::Api::Client.new(
+      host: SbrfMerchant.configuration.host,
+      userName: SbrfMerchant.configuration.userName,
+      password: SbrfMerchant.configuration.password
+    )
+  end
+
   def self.configure
     self.configuration ||= Configuration.new
     yield(configuration)

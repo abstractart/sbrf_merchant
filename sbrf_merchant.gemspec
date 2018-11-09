@@ -27,8 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'simplecov-console'
 
-  spec.add_runtime_dependency 'activesupport'
-  spec.add_runtime_dependency 'dry-auto_inject'
-  spec.add_runtime_dependency 'faraday'
   spec.add_runtime_dependency 'json'
 end

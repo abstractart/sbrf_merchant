@@ -31,7 +31,7 @@ end
 RSpec.shared_context 'API Client Refund Order Stub' do
   let(:orderId) { 'orderId' }
   let(:amount) { 1000 }
-  let(:errorCode) { "0" }
+  let(:errorCode) { '0' }
   let(:errorMessage) { '' }
 
   let(:api_client) do
@@ -47,7 +47,7 @@ RSpec.shared_context 'API Client Order Status Stub' do
   let(:orderId) { 'orderId' }
   let(:orderStatus) { SbrfMerchant::Api::OrderStatus::NOT_PAID }
   let(:amount) { 1000 }
-  let(:errorCode) { "0" }
+  let(:errorCode) { '0' }
   let(:errorMessage) { '' }
   let(:api_response) do
     {
@@ -68,7 +68,8 @@ RSpec.shared_context 'API Client Order Status Stub' do
       terminalId: '12345678',
       authRefNum: '111111111111',
       paymentAmountInfo: { paymentState: 'REFUNDED', approvedAmount: 1000, depositedAmount: 500, refundedAmount: 500 },
-      bankInfo: { bankName: 'TEST CARD', bankCountryCode: 'RU', bankCountryName: 'Россия' } }
+      bankInfo: { bankName: 'TEST CARD', bankCountryCode: 'RU', bankCountryName: 'Россия' }
+    }
   end
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)
@@ -81,7 +82,7 @@ end
 
 RSpec.shared_context 'API Client Order Cancel Stub' do
   let(:orderId) { 'orderId' }
-  let(:errorCode) { "0" }
+  let(:errorCode) { '0' }
   let(:errorMessage) { '' }
 
   let(:api_client) do
@@ -95,7 +96,7 @@ end
 
 RSpec.shared_context 'API Client Complete Order Stub' do
   let(:orderId) { 'orderId' }
-  let(:errorCode) { "0" }
+  let(:errorCode) { '0' }
   let(:errorMessage) { '' }
   let(:amount) { 1000 }
 

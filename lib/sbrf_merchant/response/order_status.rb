@@ -1,6 +1,5 @@
 require 'sbrf_merchant/api/order_status'
 
-
 module SbrfMerchant
   module Response
     class OrderStatus < Response::Base

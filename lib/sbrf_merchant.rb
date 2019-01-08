@@ -1,4 +1,4 @@
-require 'sbrf_merchant/order/one_stage'
+require 'sbrf_merchant/order'
 
 module SbrfMerchant
   class << self

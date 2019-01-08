@@ -1,11 +1,11 @@
-require 'bundler/setup'
-require 'sbrf_merchant'
 require 'simplecov'
 require 'simplecov-console'
 SimpleCov.formatter = SimpleCov::Formatter::Console
 SimpleCov.start do
   add_filter '/spec/support'
 end
+require 'bundler/setup'
+require 'sbrf_merchant'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

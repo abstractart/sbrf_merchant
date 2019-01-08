@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Sberbank Merchant API Client for Ruby'
   spec.homepage      = 'https://github.com/abstractart/sbrf_merchant'
   spec.license       = 'MIT'
+  spec.required_ruby_version = '>= 2.0.0'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -27,8 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'simplecov-console'
 
-  spec.add_runtime_dependency 'activesupport'
-  spec.add_runtime_dependency 'dry-auto_inject'
-  spec.add_runtime_dependency 'faraday'
   spec.add_runtime_dependency 'json'
 end

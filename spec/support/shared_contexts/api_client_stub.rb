@@ -35,24 +35,25 @@ RSpec.shared_context 'API Client Order Status Stub' do
   let(:errorCode) { "0" }
   let(:errorMessage) { '' }
   let(:api_response) do
-    { 'errorCode' => errorCode,
-      'errorMessage' => errorMessage,
-      'orderNumber' => orderNumber,
-      'orderStatus' => orderStatus,
-      'actionCode' => 0,
-      'actionCodeDescription' => '',
-      'amount' => amount,
-      'currency' => '643',
-      'date' => 1_538_233_213_914,
-      'ip' => '83.220.238.250',
-      'merchantOrderParams' => [],
-      'attributes' => [{ 'name' => 'mdOrder', 'value' => '6297fda8-3b15-7413-6297-fda804b030a3' }],
-      'cardAuthInfo' => { 'expiration' => '201912', 'cardholderName' => 'CARDHOLDER NAME', 'approvalCode' => '123456', 'pan' => '411111XXXXXX1111' },
-      'authDateTime' => 1_538_233_277_742,
-      'terminalId' => '12345678',
-      'authRefNum' => '111111111111',
-      'paymentAmountInfo' => { 'paymentState' => 'REFUNDED', 'approvedAmount' => 1000, 'depositedAmount' => 500, 'refundedAmount' => 500 },
-      'bankInfo' => { 'bankName' => 'TEST CARD', 'bankCountryCode' => 'RU', 'bankCountryName' => 'Россия' } }.with_indifferent_access
+    {
+      errorCode: errorCode,
+      errorMessage: errorMessage,
+      orderNumber: orderNumber,
+      orderStatus: orderStatus,
+      actionCode: 0,
+      actionCodeDescription: '',
+      amount: amount,
+      currency: '643',
+      date: 1_538_233_213_914,
+      ip: '83.220.238.250',
+      merchantOrderParams: [],
+      attributes: [{ name: 'mdOrder', value: '6297fda8-3b15-7413-6297-fda804b030a3' }],
+      cardAuthInfo: { expiration: '201912', cardholderName: 'CARDHOLDER NAME', approvalCode: '123456', pan: '411111XXXXXX1111' },
+      authDateTime: 1_538_233_277_742,
+      terminalId: '12345678',
+      authRefNum: '111111111111',
+      paymentAmountInfo: { paymentState: 'REFUNDED', approvedAmount: 1000, depositedAmount: 500, refundedAmount: 500 },
+      bankInfo: { bankName: 'TEST CARD', bankCountryCode: 'RU', bankCountryName: 'Россия' } }
   end
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)

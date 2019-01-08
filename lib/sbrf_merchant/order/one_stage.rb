@@ -1,7 +1,5 @@
 require 'sbrf_merchant/api/client'
 require 'sbrf_merchant/api/action'
-require 'sbrf_merchant/config/container'
-require 'dry-auto_inject'
 require 'sbrf_merchant/response/base'
 require 'sbrf_merchant/response/create_order'
 require 'sbrf_merchant/response/order_status'
@@ -9,7 +7,13 @@ require 'sbrf_merchant/response/order_status'
 module SbrfMerchant
   module Order
     class OneStage
-      include Dry::AutoInject(Config::Container).hash['api_client']
+      attr_reader :api_client, :orderId, :orderNumber
+
+      def initialize(orderId: nil, orderNumber: nil, api_client: SbrfMerchant.api_client)
+        @orderId = orderId
+        @orderNumber = orderNumber
+        @api_client = api_client
+      end
 
       def register(**args)
         response = Response::CreateOrder.new(
@@ -32,12 +36,6 @@ module SbrfMerchant
         )
       end
 
-      def initialize(orderId: nil, orderNumber: nil, api_client:)
-        @orderId = orderId
-        @orderNumber = orderNumber
-        @api_client = api_client
-      end
-
       def cancel
         Response::Base.new(
           api_client.process_request(
@@ -54,14 +52,6 @@ module SbrfMerchant
             default_request_params.merge(amount: amount)
           )
         )
-      end
-
-      def orderId
-        @orderId.freeze
-      end
-
-      def orderNumber
-        @orderNumber.freeze
       end
 
       private

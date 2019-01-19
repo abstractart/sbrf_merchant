@@ -1,60 +1,60 @@
 RSpec.shared_context 'API Client Register One Stage Order Stub' do
-  let(:orderId) { 'orderId' }
+  let(:order_id) { 'orderId' }
   let(:amount) { 1000 }
-  let(:formUrl) { 'formUrl' }
-  let(:returnUrl) { 'returnUrl' }
+  let(:form_url) { 'formUrl' }
+  let(:return_url) { 'returnUrl' }
 
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)
-    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::REGISTER_ORDER, amount: amount, returnUrl: returnUrl, orderNumber: orderNumber)
-                                                  .and_return(orderId: orderId, formUrl: formUrl)
+    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::REGISTER_ORDER, amount: amount, returnUrl: return_url, orderNumber: order_number)
+                                                  .and_return(orderId: order_id, formUrl: form_url)
 
     api_client
   end
 end
 
 RSpec.shared_context 'API Client Register Two Stage Order Stub' do
-  let(:orderId) { 'orderId' }
+  let(:order_id) { 'orderId' }
   let(:amount) { 1000 }
-  let(:formUrl) { 'formUrl' }
-  let(:returnUrl) { 'returnUrl' }
+  let(:form_url) { 'formUrl' }
+  let(:return_url) { 'returnUrl' }
 
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)
-    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::REGISTER_PRE_AUTH, amount: amount, returnUrl: returnUrl, orderNumber: orderNumber)
-                                                  .and_return(orderId: orderId, formUrl: formUrl)
+    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::REGISTER_PRE_AUTH, amount: amount, returnUrl: return_url, orderNumber: order_number)
+                                                  .and_return(orderId: order_id, formUrl: form_url)
 
     api_client
   end
 end
 
 RSpec.shared_context 'API Client Refund Order Stub' do
-  let(:orderId) { 'orderId' }
+  let(:order_id) { 'orderId' }
   let(:amount) { 1000 }
-  let(:errorCode) { '0' }
-  let(:errorMessage) { '' }
+  let(:error_code) { '0' }
+  let(:error_message) { '' }
 
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)
-    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::REFUND_ORDER, amount: amount, orderNumber: orderNumber, orderId: orderId)
-                                                  .and_return(errorCode: errorCode, errorMessage: errorMessage)
+    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::REFUND_ORDER, amount: amount, orderNumber: order_number, orderId: order_id)
+                                                  .and_return(error_code: error_code, error_message: error_message)
 
     api_client
   end
 end
 
 RSpec.shared_context 'API Client Order Status Stub' do
-  let(:orderId) { 'orderId' }
-  let(:orderStatus) { SbrfMerchant::Api::OrderStatus::NOT_PAID }
+  let(:order_id) { 'orderId' }
+  let(:order_status) { SbrfMerchant::Api::OrderStatus::NOT_PAID }
   let(:amount) { 1000 }
-  let(:errorCode) { '0' }
-  let(:errorMessage) { '' }
+  let(:error_code) { '0' }
+  let(:error_message) { '' }
   let(:api_response) do
     {
-      errorCode: errorCode,
-      errorMessage: errorMessage,
-      orderNumber: orderNumber,
-      orderStatus: orderStatus,
+      errorCode: error_code,
+      errorMessage: error_message,
+      orderNumber: order_number,
+      orderStatus: order_status,
       actionCode: 0,
       actionCodeDescription: '',
       amount: amount,
@@ -73,7 +73,7 @@ RSpec.shared_context 'API Client Order Status Stub' do
   end
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)
-    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::ORDER_STATUS, orderNumber: orderNumber, orderId: orderId)
+    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::ORDER_STATUS, orderNumber: order_number, orderId: order_id)
                                                   .and_return(api_response)
 
     api_client
@@ -81,29 +81,29 @@ RSpec.shared_context 'API Client Order Status Stub' do
 end
 
 RSpec.shared_context 'API Client Order Cancel Stub' do
-  let(:orderId) { 'orderId' }
-  let(:errorCode) { '0' }
-  let(:errorMessage) { '' }
+  let(:order_id) { 'orderId' }
+  let(:error_code) { '0' }
+  let(:error_message) { '' }
 
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)
-    allow(api_client).to receive(:process_request).with(SbrfMerchant::Action::CANCEL_ORDER, orderNumber: orderNumber, orderId: orderId)
-                                                  .and_return(errorCode: errorCode, errorMessage: errorMessage)
+    allow(api_client).to receive(:process_request).with(SbrfMerchant::Action::CANCEL_ORDER, orderNumber: order_number, orderId: order_id)
+                                                  .and_return(error_code: error_code, error_message: error_message)
 
     api_client
   end
 end
 
 RSpec.shared_context 'API Client Complete Order Stub' do
-  let(:orderId) { 'orderId' }
-  let(:errorCode) { '0' }
-  let(:errorMessage) { '' }
+  let(:order_id) { 'orderId' }
+  let(:error_code) { '0' }
+  let(:error_message) { '' }
   let(:amount) { 1000 }
 
   let(:api_client) do
     api_client = instance_double(SbrfMerchant::Api::Client)
-    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::COMPLETE_ORDER, amount: amount, orderNumber: orderNumber, orderId: orderId)
-                                                  .and_return(errorCode: errorCode, errorMessage: errorMessage)
+    allow(api_client).to receive(:process_request).with(SbrfMerchant::Api::Action::COMPLETE_ORDER, amount: amount, orderNumber: order_number, orderId: order_id)
+                                                  .and_return(errorCode: error_code, errorMessage: error_message)
 
     api_client
   end

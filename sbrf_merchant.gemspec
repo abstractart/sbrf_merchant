@@ -15,10 +15,10 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.2.0'
 
   spec.files = Dir[
-    "lib/**/*",
-    "LICENSE.txt",
-    "Rakefile",
-    "README.md"
+    'lib/**/*',
+    'LICENSE.txt',
+    'Rakefile',
+    'README.md'
   ]
 
   spec.add_development_dependency 'bundler', '~> 1.16'

@@ -2,7 +2,7 @@ module SbrfMerchant
   module Response
     class CreateOrder < Base
       def success?
-        !form_url.nil? && !order_id.nil?
+        !data[:form_url].nil? && !data[:order_id].nil?
       end
     end
   end

@@ -11,13 +11,14 @@ module SbrfMerchant
       end
 
       def success?
-        return false unless error_code
+        return false unless data[:error_code]
 
-        error_code.to_i == SbrfMerchant::Api::ErrorCode::SUCCESS
+        data[:error_code].to_i == SbrfMerchant::Api::ErrorCode::SUCCESS
       end
 
       def method_missing(method, *args, &block)
         return data[method] if data.key?(method)
+
         super
       end
 

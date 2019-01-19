@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Sberbank Merchant API Client for Ruby'
   spec.homepage      = 'https://github.com/abstractart/sbrf_merchant'
   spec.license       = 'MIT'
-  spec.required_ruby_version = '>= 2.1.0'
+  spec.required_ruby_version = '>= 2.2.0'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})

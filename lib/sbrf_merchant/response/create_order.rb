@@ -1,16 +1,8 @@
 module SbrfMerchant
   module Response
-    class CreateOrder < Response::Base
-      attr_reader :formUrl, :orderId
-
-      def initialize(args = {})
-        super(args)
-        @formUrl = args[:formUrl]
-        @orderId = args[:orderId]
-      end
-
+    class CreateOrder < Base
       def success?
-        !formUrl.nil? && !orderId.nil?
+        !form_url.nil? && !order_id.nil?
       end
     end
   end

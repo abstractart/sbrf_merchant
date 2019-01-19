@@ -5,11 +5,11 @@ require 'net/http'
 module SbrfMerchant
   module Api
     class Client
-      attr_accessor :host, :userName, :password
+      attr_accessor :host, :user_name, :password
 
-      def initialize(host:, userName:, password:)
+      def initialize(host:, user_name:, password:)
         @host = host
-        @userName = userName
+        @user_name = user_name
         @password = password
       end
 
@@ -34,7 +34,7 @@ module SbrfMerchant
       def build_net_http_request_object(uri, params)
         request = Net::HTTP::Post.new(uri)
         request.set_form_data(
-          params.merge(userName: userName, password: password)
+          params.merge(userName: user_name, password: password)
         )
         request
       end

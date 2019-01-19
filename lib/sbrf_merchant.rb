@@ -8,7 +8,7 @@ module SbrfMerchant
   def self.api_client
     SbrfMerchant::Api::Client.new(
       host: SbrfMerchant.configuration.host,
-      userName: SbrfMerchant.configuration.userName,
+      user_name: SbrfMerchant.configuration.user_name,
       password: SbrfMerchant.configuration.password
     )
   end
@@ -19,6 +19,9 @@ module SbrfMerchant
   end
 
   class Configuration
-    attr_accessor :host, :userName, :password
+    attr_accessor :host, :user_name, :password
   end
 end
+
+Sberbank = SbrfMerchant
+SBRF = SbrfMerchant

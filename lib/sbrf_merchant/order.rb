@@ -3,59 +3,43 @@ require 'sbrf_merchant/api/action'
 require 'sbrf_merchant/response/base'
 require 'sbrf_merchant/response/create_order'
 require 'sbrf_merchant/response/order_status'
+require 'sbrf_merchant/utils/string'
+require 'awrence'
 
 module SbrfMerchant
   class Order
-    attr_reader :api_client, :orderId, :orderNumber
+    attr_reader :api_client, :order_id, :order_number
 
-    def initialize(orderId: nil, orderNumber: nil, api_client: SbrfMerchant.api_client)
-      @orderId = orderId
-      @orderNumber = orderNumber
+    def initialize(order_id: nil, order_number: nil, api_client: Sberbank.api_client)
+      @order_id = order_id
+      @order_number = order_number
       @api_client = api_client
     end
 
-    def register_one_stage(**args)
-      register(SbrfMerchant::Api::Action::REGISTER_ORDER, args)
-    end
+    AVAILABLE_METHODS = {
+      get_order_status_extended: Response::OrderStatus,
+      register: Response::CreateOrder,
+      register_pre_auth: Response::CreateOrder,
+      deposit: Response::Base,
+      refund: Response::Base,
+      reverse: Response::Base
+    }.freeze
 
-    def register_two_stage(**args)
-      register(SbrfMerchant::Api::Action::REGISTER_PRE_AUTH, args)
-    end
-
-    def get_info
-      Response::OrderStatus.new(
-        api_client.process_request(
-          SbrfMerchant::Api::Action::ORDER_STATUS,
-          default_request_params
+    AVAILABLE_METHODS.each do |method_name, response_class|
+      define_method(method_name) do |**args|
+        response = response_class.new(
+          api_client.process_request(
+            Sberbank::Api::Action.convert_method_name_to_action(method_name.to_s),
+            args.merge(default_request_params).to_camelback_keys
+          )
         )
-      )
-    end
 
-    def cancel
-      Response::Base.new(
-        api_client.process_request(
-          SbrfMerchant::Api::Action::CANCEL_ORDER,
-          default_request_params
-        )
-      )
-    end
+        if %i[register_pre_auth register].include?(method_name) && response.success?
+          @order_id = response.order_id
+        end
 
-    def refund(amount)
-      Response::Base.new(
-        api_client.process_request(
-          SbrfMerchant::Api::Action::REFUND_ORDER,
-          default_request_params.merge(amount: amount)
-        )
-      )
-    end
-
-    def complete(amount)
-      Response::Base.new(
-        api_client.process_request(
-          SbrfMerchant::Api::Action::COMPLETE_ORDER,
-          default_request_params.merge(amount: amount)
-        )
-      )
+        response
+      end
     end
 
     private
@@ -63,22 +47,10 @@ module SbrfMerchant
     def default_request_params
       params = {}
 
-      params[:orderId] = orderId if orderId
-      params[:orderNumber] = orderNumber if orderNumber
+      params[:order_id] = order_id if order_id
+      params[:order_number] = order_number if order_number
 
       params
-    end
-
-    def register(path, args)
-      response = Response::CreateOrder.new(
-        api_client.process_request(
-          path,
-          args.merge(default_request_params)
-        )
-      )
-      @orderId = response.orderId
-
-      response
     end
   end
 end

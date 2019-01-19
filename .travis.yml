@@ -5,7 +5,9 @@ env:
 language: ruby
 rvm:
   - 2.5.1
-before_install: gem install bundler -v 1.16.5
+before_install:
+  - gem install bundler -v 1.16.5 --no-document
+  - gem install rubocop --no-document
 notifications:
   - false
 before_script:
@@ -13,6 +15,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 scripts:
-  - bundle exec rspec spec
+  - rubocop
+  - rake
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

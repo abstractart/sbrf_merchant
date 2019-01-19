@@ -1,0 +1,11 @@
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+Metrics/LineLength:
+  Exclude:
+    - 'spec/support/shared_contexts/api_client_stub.rb'
+    - 'spec/spec_helper.rb'
+  Max: 100
+
+Style/Documentation:
+  Enabled: false

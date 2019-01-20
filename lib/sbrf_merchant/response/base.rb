@@ -1,29 +1,31 @@
 require 'sbrf_merchant/api/error_code'
 require 'plissken'
+require 'json/ext'
 
 module SbrfMerchant
   module Response
     class Base
-      attr_reader :data
+      attr_reader :raw_data, :data
 
-      def initialize(**data)
-        @data = data.to_snake_keys
+      def initialize(**raw_data)
+        @raw_data = raw_data.to_snake_keys
+        @data = JSON.parse(JSON.dump(@raw_data), object_class: OpenStruct)
       end
 
       def success?
-        return false unless data[:error_code]
+        return false unless raw_data[:error_code]
 
-        data[:error_code].to_i == SbrfMerchant::Api::ErrorCode::SUCCESS
+        raw_data[:error_code].to_i == SbrfMerchant::Api::ErrorCode::SUCCESS
       end
 
       def method_missing(method, *args, &block)
-        return data[method] if data.key?(method)
+        return data.public_send(method) if data.respond_to?(method)
 
         super
       end
 
       def respond_to_missing?(method, *)
-        data.key?(method) || super
+        data.respond_to?(method) || super
       end
     end
   end

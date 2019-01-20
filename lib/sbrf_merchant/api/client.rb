@@ -1,4 +1,4 @@
-require 'json'
+require 'json/ext'
 require 'uri'
 require 'net/http'
 

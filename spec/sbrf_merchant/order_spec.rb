@@ -85,6 +85,7 @@ RSpec.describe SbrfMerchant::Order do
       expect(actual_response).to be_not_paid
       expect(actual_response.error_code).to eq(error_code)
       expect(actual_response.error_message).to eq(error_message)
+      expect(actual_response.payment_amount_info.payment_state).to eq('REFUNDED')
     end
   end
 

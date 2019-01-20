@@ -45,12 +45,7 @@ module SbrfMerchant
     private
 
     def default_request_params
-      params = {}
-
-      params[:order_id] = order_id if order_id
-      params[:order_number] = order_number if order_number
-
-      params
+      { order_id: order_id, order_number: order_number }.compact
     end
   end
 end

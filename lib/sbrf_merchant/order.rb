@@ -10,7 +10,7 @@ module SbrfMerchant
   class Order
     attr_reader :api_client, :order_id, :order_number
 
-    def initialize(order_id: nil, order_number: nil, api_client: Sberbank.api_client)
+    def initialize(order_id: nil, order_number: nil, api_client: SbrfMerchant::Api::Client.new)
       @order_id = order_id
       @order_number = order_number
       @api_client = api_client

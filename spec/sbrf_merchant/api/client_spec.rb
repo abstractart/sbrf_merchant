@@ -1,5 +1,12 @@
 RSpec.describe SbrfMerchant::Api::Client do
-  let(:api_client) { described_class.new(user_name: user_name, password: password, host: host) }
+  let(:config) do
+    SbrfMerchant::Configuration.new(
+      user_name: user_name,
+      password: password,
+      host: host
+    )
+  end
+  let(:api_client) { described_class.new(config: config) }
   let(:user_name) { 'user_name' }
   let(:password) { 'password' }
   let(:host) { 'http://localhost:3000' }
@@ -45,10 +52,10 @@ RSpec.describe SbrfMerchant::Api::Client do
 
     let(:expected_parsed_request_body) do
       {
-      "param_1" => ["1"],
-      "param_2" => ["2"],
-      "password" => [password],
-      "userName" => [user_name]
+        'param_1' => ['1'],
+        'param_2' => ['2'],
+        'password' => [password],
+        'userName' => [user_name]
       }
     end
 
@@ -59,9 +66,7 @@ RSpec.describe SbrfMerchant::Api::Client do
 
   context '#new' do
     it 'assigns user_name, password & host' do
-      expect(api_client.user_name).to eq(user_name)
-      expect(api_client.host).to eq(host)
-      expect(api_client.password).to eq(password)
+      expect(api_client.config).to eq(config)
     end
   end
 end

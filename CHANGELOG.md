@@ -1,3 +1,5 @@
+# Changelog 2.0.0
+
 # Changelog 1.0.0
 - Replace Order::OneStage class with Order class
 - Add methods for working with two stage orders

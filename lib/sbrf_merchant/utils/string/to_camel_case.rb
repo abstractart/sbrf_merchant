@@ -1,8 +1,8 @@
 module SbrfMerchant
   module Utils
     module String
-      def self.camel_case_lower(string)
-        string.split('_').inject('') do |buffer, e|
+      ToCamelCase = lambda do |str|
+        str.split('_').inject('') do |buffer, e|
           buffer << (buffer.empty? ? e : e.capitalize!)
         end
       end

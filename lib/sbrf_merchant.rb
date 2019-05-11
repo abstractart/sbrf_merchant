@@ -1,4 +1,4 @@
-require 'sbrf_merchant/order'
+require 'sbrf_merchant/api/client'
 
 module SbrfMerchant
   class << self

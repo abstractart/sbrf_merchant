@@ -7,20 +7,20 @@ module SbrfMerchant
   module Api
     class Client
       attr_reader :config,
-                  :response_body_processor,
+                  :response_body_postprocessor,
                   :http_client,
                   :method_name_converter,
                   :request_body_preprocessor
 
       def initialize(
         config: SbrfMerchant.configuration,
-        response_body_processor: SbrfMerchant::Api::Response::BodyPostProcessor,
+        response_body_postprocessor: SbrfMerchant::Api::Response::BodyPostProcessor,
         request_body_preprocessor: SbrfMerchant::Api::Request::BodyPreProcessor,
         http_client: SbrfMerchant::Utils::Http::Client,
         method_name_converter: SbrfMerchant::Utils::String::ToCamelCase
       )
         @config = config
-        @response_body_processor = response_body_processor
+        @response_body_postprocessor = response_body_postprocessor
         @http_client = http_client
         @method_name_converter = method_name_converter
         @request_body_preprocessor = request_body_preprocessor
@@ -30,7 +30,7 @@ module SbrfMerchant
         prepared_params = request_body_preprocessor.call(auth_params.merge(params))
         response = http_client.call(uri(method), prepared_params)
 
-        response_body_processor.call(response.body)
+        response_body_postprocessor.call(response.body)
       end
 
       private

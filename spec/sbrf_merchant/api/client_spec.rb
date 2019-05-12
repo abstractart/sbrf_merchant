@@ -12,26 +12,85 @@ RSpec.describe SbrfMerchant::Api::Client do
   end
 
   let(:http_client) { ->(_uri, _params) { http_response } }
-  let(:http_response) { OpenStruct.new(body: http_response_body) }
-  let(:http_response_body) do
-    JSON.dump(
-      {
-        errorCode: '0',
-        errorMessage: '',
-        someParam: 'some_value'
-      }
-    )
+  let(:http_response) { OpenStruct.new(body: JSON.dump(http_response_hash)) }
+  let(:http_response_hash) do
+    {
+      errorCode: '0',
+      errorMessage: '',
+      someParam: 'some_value'
+    }
+  end
+
+  let(:http_response_hash_with_snake_keys) do
+    {
+      error_code: '0',
+      error_message: '',
+      some_param: 'some_value'
+    }
   end
 
   context '#call' do
     let(:api_client) { described_class.new(config: config, http_client: http_client) }
     let(:method) { 'path' }
-    let(:params) { { param_1: '1', param_2: '2' } }
-    let(:response) { api_client.call(method, params) }
+
+    let(:snake_case_params) { { my_param1: '1', my_param2: '2' } }
+    let(:snake_case_params_with_auth) do
+      snake_case_params.merge(
+        user_name: config.user_name,
+        password: config.password
+      )
+    end
+
+    let(:camel_case_params) { { myParam1: '1', myParam2: '2' } }
+    let(:camel_case_params_with_auth) do
+      camel_case_params.merge(
+        userName: config.user_name,
+        password: config.password
+      )
+    end
 
     it 'returns success openstruct' do
+      response = api_client.call(method, snake_case_params)
+
       expect(response).to be_success
       expect(response.some_param).to eq('some_value')
+    end
+
+    context 'request_body_preprocessor' do
+      it do
+        expect(api_client.request_body_preprocessor).to(
+          receive(:call).with(snake_case_params_with_auth).and_return(
+            camel_case_params_with_auth
+          )
+        )
+
+        api_client.call(method, snake_case_params)
+      end
+    end
+
+    context 'http_client' do
+      it do
+        expect(api_client.http_client).to(
+          receive(:call).with(
+            URI('http://localhost:3000/payment/rest/path.do'),
+            camel_case_params_with_auth
+          ).and_return(http_response)
+        )
+
+        api_client.call(method, snake_case_params)
+      end
+    end
+
+    context 'response_body_postprocessor' do
+      it do
+        expect(api_client.response_body_postprocessor).to(
+          receive(:call).with(http_response.body).and_return(
+            http_response_hash_with_snake_keys
+          )
+        )
+
+        api_client.call(method, snake_case_params)
+      end
     end
   end
 end

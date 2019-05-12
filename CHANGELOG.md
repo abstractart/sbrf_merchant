@@ -1,3 +1,5 @@
+# Changelog 2.0.1
+- Nested fields of API response is OpenStruct, not Hash
 # Changelog 2.0.0
 - Drop SbrfMerchant::Order
 - Rewrite SbrfMerchant::Api::Client, now it extendable by default for every request in API

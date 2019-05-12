@@ -17,7 +17,10 @@ RSpec.describe SbrfMerchant::Api::Client do
     {
       errorCode: '0',
       errorMessage: '',
-      someParam: 'some_value'
+      someParam: 'some_value',
+      someNestedParam: {
+        param2: 'some_nested_value'
+      }
     }
   end
 
@@ -25,7 +28,10 @@ RSpec.describe SbrfMerchant::Api::Client do
     {
       error_code: '0',
       error_message: '',
-      some_param: 'some_value'
+      some_param: 'some_value',
+      some_nested_param: {
+        param2: 'some_nested_value'
+      }
     }
   end
 
@@ -54,6 +60,7 @@ RSpec.describe SbrfMerchant::Api::Client do
 
       expect(response).to be_success
       expect(response.some_param).to eq('some_value')
+      expect(response.some_nested_param.param2).to eq('some_nested_value')
     end
 
     context 'request_body_preprocessor' do

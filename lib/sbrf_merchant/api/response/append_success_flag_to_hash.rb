@@ -3,9 +3,8 @@ require 'ostruct'
 module SbrfMerchant
   module Api
     module Response
-      BuildResultObject = lambda do |hash|
-        attributes = hash.merge(success?: IsSuccess.call(hash))
-        OpenStruct.new(attributes).freeze
+      AppendSuccessFlagToHash = lambda do |hash|
+        hash.merge(success?: IsSuccess.call(hash))
       end
 
       IsSuccess = lambda do |hash|

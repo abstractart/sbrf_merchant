@@ -1,5 +1,8 @@
 # Changelog 2.0.0
-
+- Drop SbrfMerchant::Order
+- Rewrite SbrfMerchant::Api::Client, now it extendable by default for every request in API
+- Add converting API request body from snake_case to camelCase
+- Add converting API response body from camelCase to snake_case
 # Changelog 1.0.0
 - Replace Order::OneStage class with Order class
 - Add methods for working with two stage orders

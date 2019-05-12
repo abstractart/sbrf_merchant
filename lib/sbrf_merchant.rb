@@ -13,7 +13,7 @@ module SbrfMerchant
   class Configuration
     attr_accessor :host, :user_name, :password
 
-    def initialize(host:, user_name:, password:)
+    def initialize(host: nil, user_name: nil, password: nil)
       @host = host
       @user_name = user_name
       @password = password

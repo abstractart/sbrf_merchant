@@ -46,7 +46,8 @@ client = SbrfMerchant::Api::Client.new
 
 # Вызываем метод API.
 # :register - название метода согласно документации Cбербанка в snake_case.
-# Далее параметры запроса. Имена передаются в snake_case, перед отправкой запроса все параметры приведутся к camelCase.
+# Далее параметры запроса. Имена передаются в snake_case, 
+# перед отправкой запроса все параметры приведутся к camelCase.
 response = client.call(
   :register,
   amount: 100,

@@ -41,15 +41,6 @@ SbrfMerchant.configure do |config|
   config.host =     '<Sberbank API Host>'
 end
 
-# или
-
-SbrfMerchant.configuration = SbrfMerchant::Configuration.new(
-  host: '<Sberbank API Host>',
-  user_name: '<Merchant Username>',
-  password: '<Merchant Password>'
-)
-
-
 # Cоздаем клиент
 client = SbrfMerchant::Api::Client.new
 
@@ -69,6 +60,6 @@ response.order_id #<order-id>
 
 ```
 ## Copyright
-Copyright (c) 2018 Eugene Kozlov. See [LICENSE][] for details.
+Copyright (c) 2018 Eugene Kozlov.
 
 [license]: LICENSE.md

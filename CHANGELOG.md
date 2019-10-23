@@ -1,3 +1,6 @@
+# Changelog 3.0.0
+- Drop configure from SbrfMerchant, move params to SBRF::Api::Client#initialize
+- Update minimum Ruby version to 2.3
 # Changelog 2.0.1
 - Nested fields of API response is OpenStruct, not Hash
 # Changelog 2.0.0

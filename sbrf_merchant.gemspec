@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'sbrf_merchant/version'
@@ -12,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Sberbank Merchant API Client for Ruby'
   spec.homepage      = 'https://github.com/abstractart/sbrf_merchant'
   spec.license       = 'MIT'
-  spec.required_ruby_version = '>= 2.2.0'
+  spec.required_ruby_version = '>= 2.3.0'
 
   spec.files = Dir[
     'lib/**/*',

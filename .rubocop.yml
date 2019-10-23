@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
 
 Metrics/BlockLength:
   Exclude:
@@ -11,3 +11,7 @@ Metrics/LineLength:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/ParameterLists:
+  Exclude:
+    - 'lib/sbrf_merchant/api/client.rb'

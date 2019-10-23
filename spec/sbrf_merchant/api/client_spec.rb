@@ -1,15 +1,9 @@
+# frozen_string_literal: true
+
 RSpec.describe SbrfMerchant::Api::Client do
   let(:user_name) { 'user_name' }
   let(:password) { 'password' }
   let(:host) { 'http://localhost:3000' }
-
-  let(:config) do
-    SbrfMerchant::Configuration.new(
-      user_name: user_name,
-      password: password,
-      host: host
-    )
-  end
 
   let(:http_client) { ->(_uri, _params) { http_response } }
   let(:http_response) { OpenStruct.new(body: JSON.dump(http_response_hash)) }
@@ -36,22 +30,29 @@ RSpec.describe SbrfMerchant::Api::Client do
   end
 
   context '#call' do
-    let(:api_client) { described_class.new(config: config, http_client: http_client) }
+    let(:api_client) do
+      described_class.new(
+        user_name: user_name,
+        password: password,
+        host: host,
+        http_client: http_client
+      )
+    end
     let(:method) { 'path' }
 
     let(:snake_case_params) { { my_param1: '1', my_param2: '2' } }
     let(:snake_case_params_with_auth) do
       snake_case_params.merge(
-        user_name: config.user_name,
-        password: config.password
+        user_name: user_name,
+        password: password
       )
     end
 
     let(:camel_case_params) { { myParam1: '1', myParam2: '2' } }
     let(:camel_case_params_with_auth) do
       camel_case_params.merge(
-        userName: config.user_name,
-        password: config.password
+        userName: user_name,
+        password: password
       )
     end
 

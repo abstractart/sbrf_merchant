@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sbrf_merchant/utils/high_order_functions/compose'
 require 'sbrf_merchant/utils/hash/to_camel_case_keys'
 

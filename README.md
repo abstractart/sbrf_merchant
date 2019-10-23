@@ -25,7 +25,7 @@ Ruby клиент для работы с платёжным шлюзом Сбе�
 
 ```ruby
 # Gemfile
-gem 'sbrf_merchant', '~> 2.0.0`
+gem 'sbrf_merchant'
 ```
 ## Документация
 - [Site(RU)](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
@@ -34,26 +34,24 @@ gem 'sbrf_merchant', '~> 2.0.0`
 ## Использование
 ### Пример регистрации заказа
 ```ruby
-# Перед использованием необходимо проинициализировать библиотеку.
-SbrfMerchant.configure do |config|
-  config.user_name = '<Merchant Username>'
-  config.password = '<Merchant Password>'
-  config.host =     '<Sberbank API Host>'
-end
-
 # Cоздаем клиент
-client = SbrfMerchant::Api::Client.new
+client = SBRF::Api::Client.new(
+  user_name: '<Merchant Username>',
+  password: '<Merchant Password>',
+  host: '<Sberbank API Host>' # например https://3dsec.sberbank.ru'
+)
 
 # Вызываем метод API.
 # :register - название метода согласно документации Cбербанка в snake_case.
-# Далее параметры запроса. Имена передаются в snake_case, 
+# Далее параметры запроса. Имена передаются в snake_case,
 # перед отправкой запроса все параметры приведутся к camelCase.
-response = client.call(
-  :register,
+
+params = {
   amount: 100,
-  order_number: SecureRandom.hex,
+  order_number: "something_unique_string",
   return_url: 'localhost:3000'
-)
+}
+response = client.call(:register, params)
 
 response.success? # => true
 # В ответе доступ к атрибутам в snake_case

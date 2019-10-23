@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SbrfMerchant
-  VERSION = '2.0.1'.freeze
+  VERSION = '3.0.0'
 end

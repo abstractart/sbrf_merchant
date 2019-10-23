@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sbrf_merchant/utils/high_order_functions/compose'
 require 'sbrf_merchant/utils/json/to_hash_parser'
 require 'sbrf_merchant/utils/json/to_object_parser'

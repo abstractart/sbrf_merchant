@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'ostruct'
-
 module SbrfMerchant
   module Api
     module Response

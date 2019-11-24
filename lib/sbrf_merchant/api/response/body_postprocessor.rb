@@ -8,11 +8,15 @@ require 'sbrf_merchant/api/response/body_decorator'
 module SbrfMerchant
   module Api
     module Response
-      BodyPostProcessor = ::SbrfMerchant::Utils::HighOrderFunctions::Compose.call(
-        ::SbrfMerchant::Utils::JSON::ToHashParser,
-        ::SbrfMerchant::Api::Response::AppendSuccessFlagToHash,
-        ->(hash) { ::SbrfMerchant::Api::Response::BodyDecorator.new(hash) }
-      )
+      class BodyPostProcessor
+        def call(body)
+          ::SbrfMerchant::Utils::HighOrderFunctions::Compose.new(
+            ::SbrfMerchant::Utils::JSON::ToHashParser.new,
+            ::SbrfMerchant::Api::Response::AppendSuccessFlagToHash.new,
+            ->(hash) { ::SbrfMerchant::Api::Response::BodyDecorator.new(hash) }
+          ).call(body)
+        end
+      end
     end
   end
 end

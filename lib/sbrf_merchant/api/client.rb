@@ -20,10 +20,10 @@ module SbrfMerchant
         user_name:,
         password:,
         host:,
-        response_body_postprocessor: SbrfMerchant::Api::Response::BodyPostProcessor,
-        request_body_preprocessor: SbrfMerchant::Api::Request::BodyPreProcessor,
-        http_client: SbrfMerchant::Utils::Http::Client,
-        uri_builder: SbrfMerchant::Api::Request::UriBuilder
+        response_body_postprocessor: SbrfMerchant::Api::Response::BodyPostProcessor.new,
+        request_body_preprocessor: SbrfMerchant::Api::Request::BodyPreProcessor.new,
+        http_client: SbrfMerchant::Utils::Http::Client.new,
+        uri_builder: SbrfMerchant::Api::Request::UriBuilder.new
       )
         @user_name = user_name
         @password = password

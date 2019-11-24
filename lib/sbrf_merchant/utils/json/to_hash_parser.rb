@@ -5,7 +5,11 @@ require 'json/ext'
 module SbrfMerchant
   module Utils
     module JSON
-      ToHashParser = ->(json) { ::JSON.parse(json, symbolize_names: true) }
+      class ToHashParser
+        def call(json)
+          ::JSON.parse(json)
+        end
+      end
     end
   end
 end

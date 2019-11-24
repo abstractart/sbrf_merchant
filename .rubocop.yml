@@ -12,6 +12,9 @@ Metrics/LineLength:
 Style/Documentation:
   Enabled: false
 
+Style/AsciiComments:
+  Enabled: false
+
 Metrics/ParameterLists:
   Exclude:
     - 'lib/sbrf_merchant/api/client.rb'

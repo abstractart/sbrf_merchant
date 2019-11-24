@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
-require 'ostruct'
-
 module SbrfMerchant
   module Api
     module Response
-      AppendSuccessFlagToHash = lambda do |hash|
-        hash.merge(success?: IsSuccess.call(hash))
-      end
+      class AppendSuccessFlagToHash
+        def call(hash)
+          hash.merge('success?' => success?(hash))
+        end
 
-      IsSuccess = lambda do |hash|
-        !hash[:form_url].nil? || hash[:error_code] == '0'
+        private
+
+        # Ответ считается успешным когда errorCode == '0' но есть ньюанс,
+        # В успешном ответе на запрос register errorCode отсутствует,
+        # поэтому проверяем по параметру formUrl
+        def success?(hash)
+          !hash['formUrl'].nil? || hash['errorCode'] == '0'
+        end
       end
     end
   end

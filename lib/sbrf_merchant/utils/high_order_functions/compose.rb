@@ -3,11 +3,18 @@
 module SbrfMerchant
   module Utils
     module HighOrderFunctions
-      Compose = lambda { |*functions|
-        lambda { |arg|
-          functions.inject(arg) { |acc, function| function.call(acc) }
-        }
-      }
+      # Обьединяем несколько callable сущностей в одну
+      class Compose
+        attr_reader :functions
+
+        def initialize(*functions)
+          @functions = functions
+        end
+
+        def call(arg)
+          functions.inject(arg) { |acc, func| func.call(acc) }
+        end
+      end
     end
   end
 end

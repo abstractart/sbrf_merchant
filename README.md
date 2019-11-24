@@ -58,6 +58,17 @@ response.success? # => true
 response.order_id #<order-id>
 
 ```
+### Использование альтернативного http клиента
+По умолчанию гем использует ```Net::Http``` для отправки HTTP запросов. Если в вашем проекте используется другой Http клиент, например [Faraday](https://github.com/lostisland/faraday) то нужно реализовать callable класс или Proc и передать его в конструктор:
+```ruby
+client = SBRF::Api::Client.new(
+  user_name: '<Merchant Username>',
+  password: '<Merchant Password>',
+  host: '<Sberbank API Host>' # например https://3dsec.sberbank.ru',
+  http_client: ->(uri, params) { Faraday.post(uri, params) }
+)  
+```
+
 ## Copyright
 Copyright (c) 2018 Eugene Kozlov.
 

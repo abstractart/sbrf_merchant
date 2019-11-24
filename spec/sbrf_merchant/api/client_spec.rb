@@ -29,16 +29,18 @@ RSpec.describe SbrfMerchant::Api::Client do
     }
   end
 
+  let(:api_client) do
+    described_class.new(
+      user_name: user_name,
+      password: password,
+      host: host,
+      http_client: http_client
+    )
+  end
+
   context '#call' do
-    let(:api_client) do
-      described_class.new(
-        user_name: user_name,
-        password: password,
-        host: host,
-        http_client: http_client
-      )
-    end
-    let(:method) { 'path' }
+    let(:method) { 'method' }
+    let(:uri) { URI.join(host, 'payment/rest/', "#{method}.do") }
 
     let(:snake_case_params) { { my_param1: '1', my_param2: '2' } }
     let(:snake_case_params_with_auth) do
@@ -67,9 +69,8 @@ RSpec.describe SbrfMerchant::Api::Client do
     context 'request_body_preprocessor' do
       it do
         expect(api_client.request_body_preprocessor).to(
-          receive(:call).with(snake_case_params_with_auth).and_return(
-            camel_case_params_with_auth
-          )
+          receive(:call).with(snake_case_params_with_auth)
+                        .and_return(camel_case_params_with_auth)
         )
 
         api_client.call(method, snake_case_params)
@@ -79,10 +80,8 @@ RSpec.describe SbrfMerchant::Api::Client do
     context 'http_client' do
       it do
         expect(api_client.http_client).to(
-          receive(:call).with(
-            URI('http://localhost:3000/payment/rest/path.do'),
-            camel_case_params_with_auth
-          ).and_return(http_response)
+          receive(:call).with(uri, camel_case_params_with_auth)
+                        .and_return(http_response)
         )
 
         api_client.call(method, snake_case_params)
@@ -92,9 +91,8 @@ RSpec.describe SbrfMerchant::Api::Client do
     context 'response_body_postprocessor' do
       it do
         expect(api_client.response_body_postprocessor).to(
-          receive(:call).with(http_response.body).and_return(
-            http_response_hash_with_snake_keys
-          )
+          receive(:call).with(http_response.body)
+                        .and_return(http_response_hash_with_snake_keys)
         )
 
         api_client.call(method, snake_case_params)

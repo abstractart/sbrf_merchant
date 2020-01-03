@@ -7,7 +7,7 @@ module SbrfMerchant
     module JSON
       class ToHashParser
         def call(json)
-          ::JSON.parse(json)
+          ::JSON.parse(json, symbolize_names: true)
         end
       end
     end

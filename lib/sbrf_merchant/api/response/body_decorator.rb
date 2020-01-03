@@ -5,24 +5,18 @@ require 'sbrf_merchant/utils/string/to_camel_case'
 module SbrfMerchant
   module Api
     module Response
-      # Проблема - API сбербанка возвращает ответ в формате camelCase,
-      # что не очень красиво выглядит в руби коде
-
-      # Решение - декоратор для хэша на котором будут вызываться методы в snake_case,
       class BodyDecorator
-        attr_reader :hash, :to_camel_case
+        attr_reader :hash
 
-        def initialize(hash, to_camel_case = ::SBRF::Utils::String::ToCamelCase.new)
+        def initialize(hash)
           @hash = hash
-          @to_camel_case = to_camel_case
         end
 
         def method_missing(meth, *args)
-          value = hash[key(meth)]
+          # Если ключ отсутствует то поведение по умолчанию
+          return super unless hash.key?(meth)
 
-          # Если значение не найдено то поведение по умолчанию
-          return super if value.nil?
-
+          value = hash[meth]
           # Если значение - хэш то возвращаем его, предварительно обернув в декоратор
           return self.class.new(value) if value.is_a?(Hash)
 
@@ -31,17 +25,11 @@ module SbrfMerchant
         end
 
         def respond_to?(meth)
-          hash.key?(key(meth))
+          hash.key?(meth)
         end
 
         def respond_to_missing?(meth)
-          hash.key?(key(meth))
-        end
-
-        private
-
-        def key(meth)
-          to_camel_case.call(meth.to_s)
+          hash.key?(meth)
         end
       end
     end

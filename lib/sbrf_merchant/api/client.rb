@@ -3,6 +3,7 @@
 require 'sbrf_merchant/api/response/body_postprocessor'
 require 'sbrf_merchant/api/request/body_preprocessor'
 require 'sbrf_merchant/api/request/uri_builder'
+require 'sbrf_merchant/utils/json/to_hash_parser'
 require 'sbrf_merchant/utils/http/client'
 
 module SbrfMerchant
@@ -14,16 +15,18 @@ module SbrfMerchant
                   :response_body_postprocessor,
                   :http_client,
                   :uri_builder,
-                  :request_body_preprocessor
+                  :request_body_preprocessor,
+                  :json_parser
 
       def initialize(
         user_name:,
         password:,
         host:,
-        response_body_postprocessor: SbrfMerchant::Api::Response::BodyPostProcessor.new,
-        request_body_preprocessor: SbrfMerchant::Api::Request::BodyPreProcessor.new,
-        http_client: SbrfMerchant::Utils::Http::Client.new,
-        uri_builder: SbrfMerchant::Api::Request::UriBuilder.new
+        response_body_postprocessor: SBRF::Api::Response::BodyPostProcessor.new,
+        request_body_preprocessor: SBRF::Api::Request::BodyPreProcessor.new,
+        http_client: SBRF::Utils::Http::Client.new,
+        uri_builder: SBRF::Api::Request::UriBuilder.new,
+        json_parser: SBRF::Utils::JSON::ToHashParser.new
       )
         @user_name = user_name
         @password = password
@@ -32,14 +35,16 @@ module SbrfMerchant
         @http_client = http_client
         @uri_builder = uri_builder
         @request_body_preprocessor = request_body_preprocessor
+        @json_parser = json_parser
       end
 
       def call(method_name, **params)
         prepared_params = request_body_preprocessor.call(auth_params.merge(params))
         uri = uri_builder.call(host, method_name)
-
         response = http_client.call(uri, prepared_params)
-        response_body_postprocessor.call(response.body)
+        parsed_body = json_parser.call(response.body)
+
+        response_body_postprocessor.call(parsed_body)
       end
 
       private

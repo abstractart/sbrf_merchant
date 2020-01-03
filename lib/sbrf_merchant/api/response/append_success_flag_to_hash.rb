@@ -5,7 +5,7 @@ module SbrfMerchant
     module Response
       class AppendSuccessFlagToHash
         def call(hash)
-          hash.merge('success?' => success?(hash))
+          hash.merge(success?: success?(hash))
         end
 
         private
@@ -14,7 +14,7 @@ module SbrfMerchant
         # В успешном ответе на запрос register errorCode отсутствует,
         # поэтому проверяем по параметру formUrl
         def success?(hash)
-          !hash['formUrl'].nil? || hash['errorCode'] == '0'
+          !hash[:form_url].nil? || hash[:error_code] == '0'
         end
       end
     end

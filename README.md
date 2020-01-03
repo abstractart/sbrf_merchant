@@ -37,7 +37,7 @@ Ruby клиент для работы с платёжным шлюзом Сбе�
 gem 'sbrf_merchant'
 ```
 ## Документация
-- [Site(RU)](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
+- [WEB(RU)](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
 - [PDF(RU)](http://cs.petrsu.ru/~vadim/sd2018/Merchant-Manual-SBRF.pdf)
 
 ## Примеры использования
@@ -60,7 +60,7 @@ params = {
   order_number: "something_unique_string",
   return_url: 'localhost:3000'
 }
-response = client.call(:register, params)
+response = client.call(:register, **params)
 
 response.success? # => true
 # В ответе доступ к атрибутам в snake_case

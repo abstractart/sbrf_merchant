@@ -17,7 +17,7 @@ Ruby клиент для работы с платёжным шлюзом Сбе�
 - [Установка](#установка)
 - [Документация](#документация)
 - [Примеры использования](#примеры-использования)
-  - [Регистрации заказа](#регистрация-заказа)
+  - [Регистрация заказа](#регистрация-заказа)
   - [Замена HTTP клиента](#замена-http-клиента)
   - [Замена JSON парсера](#замена-json-парсера)
 
@@ -35,7 +35,7 @@ Ruby клиент для работы с платёжным шлюзом Сбе�
 # Gemfile
 gem 'sbrf_merchant'
 ```
-## Документация
+## Документация к API
 - [WEB(RU)](https://securepayments.sberbank.ru/wiki/doku.php/integration:api:start)
 - [PDF(RU)](http://cs.petrsu.ru/~vadim/sd2018/Merchant-Manual-SBRF.pdf)
 
@@ -46,7 +46,7 @@ gem 'sbrf_merchant'
 client = SBRF::Api::Client.new(
   user_name: '<Merchant Username>',
   password: '<Merchant Password>',
-  host: '<Sberbank API Host>' # например https://3dsec.sberbank.ru'
+  host: '<Sberbank API Host>' # например https://3dsec.sberbank.ru
 )
 
 # Вызываем метод API.
@@ -64,6 +64,9 @@ response = client.call(:register, **params)
 response.success? # => true
 # В ответе доступ к атрибутам в snake_case
 response.order_id #<order-id>
+
+# Пример запроса 'получить информацию о заказе
+client.call(:get_order_status, order_id: response.order_id)
 
 ```
 ### Замена HTTP клиента
@@ -88,4 +91,4 @@ client = SBRF::Api::Client.new(
 )
 ```
 ## Copyright
-Copyright (c) 2019 Eugene Kozlov.
+Copyright (c) 2018-2020 Eugene Kozlov.

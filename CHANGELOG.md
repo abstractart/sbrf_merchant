@@ -1,3 +1,8 @@
+# Changelog 3.1.0
+- Returned plissken gem to convert the entire HTTP response to snake_case.
+- Specs are refactored, now each class is tested independently.
+- Removed the JSON gem from dependencies. Added the ability for developers to replace utilities for parsing JSON. Add example in README how to use it.
+- Simplified the code where possible.
 # Changelog 3.0.0
 - Drop configure from SbrfMerchant, move params to SBRF::Api::Client#initialize
 - Update minimum Ruby version to 2.3

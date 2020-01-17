@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'json/ext'
+require 'json'
 
 module SbrfMerchant
   module Utils

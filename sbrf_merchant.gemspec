@@ -31,6 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov-console'
 
   spec.add_runtime_dependency 'awrence'
-  spec.add_runtime_dependency 'json'
   spec.add_runtime_dependency 'plissken'
 end

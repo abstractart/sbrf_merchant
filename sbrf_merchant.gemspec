@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['kozlovea8@gmail.com']
 
   spec.summary       = 'Sberbank Merchant'
-  spec.description   = 'Sberbank Merchant API Client for Ruby'
+  spec.description   = 'Simple and flexible Sberbank acquiring API client for Ruby'
   spec.homepage      = 'https://github.com/abstractart/sbrf_merchant'
   spec.license       = 'MIT'
   spec.required_ruby_version = '>= 2.3.0'

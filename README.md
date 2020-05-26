@@ -75,7 +75,7 @@ client.call(:get_order_status, order_id: response.order_id)
 client = SBRF::Api::Client.new(
   user_name: '<Merchant Username>',
   password: '<Merchant Password>',
-  host: '<Sberbank API Host>' # например https://3dsec.sberbank.ru',
+  host: '<Sberbank API Host>', # например https://3dsec.sberbank.ru',
   http_client: ->(uri, params) { Faraday.post(uri, params) }
 )
 ```
@@ -86,7 +86,7 @@ client = SBRF::Api::Client.new(
 client = SBRF::Api::Client.new(
   user_name: '<Merchant Username>',
   password: '<Merchant Password>',
-  host: '<Sberbank API Host>' # например https://3dsec.sberbank.ru',
+  host: '<Sberbank API Host>', # например https://3dsec.sberbank.ru',
   json_parser: ->(json) { Oj.load(json, symbol_keys: true) }
 )
 ```

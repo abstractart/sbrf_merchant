@@ -4,7 +4,7 @@ env:
     - CC_TEST_REPORTER_ID=9735ef84689218db8e96c19956062b07b3f300af987cfb6817765cc12c542c97
 language: ruby
 rvm:
-  - 2.5.1
+  - 2.6.6
 before_install:
   - gem install bundler --no-document
   - gem install rubocop --no-document
